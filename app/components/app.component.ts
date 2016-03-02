@@ -13,7 +13,12 @@ import { RouterLink, ROUTER_DIRECTIVES,RouteConfig } from 'angular2/router';
 import {SenateLegislatorsComponent} from './app.senatelegislatorscomponent';
 import {HouseLegislatorsComponent} from './app.houselegislatorscomponent';
 import {SenateBillsComponent} from './app.senatebillscomponent';
+import {SenateBillDetailsComponent} from './senatebilldetails';
+
+
+
 import {HomeDashBoardComponent} from './app.homedashboardcomponent';
+import {LegislatorDetailsComponent} from './app.legislatorsdetailscomponent';
 
 import  'rxjs/add/operator/count';
 import  'rxjs/add/operator/filter';
@@ -33,7 +38,7 @@ import {Observable} from 'rxjs/Observable';
 })
 
 @View({
-    directives: [LegislatureImage, HomeDashBoardComponent,SenateBillsComponent,ChartDirective,
+    directives: [LegislatureImage, HomeDashBoardComponent,SenateBillsComponent,SenateBillDetailsComponent,ChartDirective,
       ChartDirective1, DonutChart, ExecutiveChart, RouterLink, ROUTER_DIRECTIVES ],
     templateUrl: 'main.html'
 })
@@ -55,6 +60,14 @@ import {Observable} from 'rxjs/Observable';
     {path: '/SenateBills',
       as: 'SenateBills',
       component: SenateBillsComponent },
+
+      {path: '/SenateBillDetails/:id',
+        as: 'SenateBillDetails',
+        component: SenateBillDetailsComponent },
+
+    {path: '/LegislatorDetails/:id',
+      as: 'LegislatorDetails',
+      component: LegislatorDetailsComponent},
 
     {path: '/Representatives',
       as: 'CustomerDetails',

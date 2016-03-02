@@ -4,6 +4,7 @@ import {MyIGADataService} from '../services/MyIGADataService';
 import {MyLocalIGADataService} from '../services/MyLocalIGADataService';
 import {IMyIGADataService} from '../models/IMyIGADataService';
 import {Legislator} from '../models/Legislator';
+import {Router, RouteParams, RouterLink, Location, ROUTER_DIRECTIVES} from 'angular2/router';
 
 import {LegislatureImage} from './app.legislatureimage';
 
@@ -17,7 +18,7 @@ import  'rxjs/add/operator/map';
 
 @View({
 
-    directives : [LegislatureImage],
+    directives : [LegislatureImage, RouterLink, ROUTER_DIRECTIVES],
     templateUrl: 'senators.html'
 /*
     template:
@@ -60,6 +61,20 @@ export class SenateLegislatorsComponent {
 
   public senateLegislators1 : Legislator[] = [];
   public senateDemocrats : Legislator[] = [];
+
+
+
+  followLegislator(inLeg: Legislator) {
+    console.log('FOLLOWING ' + JSON.stringify(inLeg));
+
+    this.dataService.followLegislator(inLeg)
+    .map( res => res.json())
+    .subscribe ( x => {
+       inLeg.isFollowed = true;
+       console.log(JSON.stringify('asdasd ' + inLeg))
+    });
+
+  }
   constructor(@Inject(MyLocalIGADataService) public dataService: IMyIGADataService) {
     //console.log(this.chambername);
 

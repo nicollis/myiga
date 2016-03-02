@@ -35,10 +35,18 @@ export interface IMyIGADataService {
    biPartisanBills1: Bill[]
    billsList: ReplaySubject<Bill>;
   legislatorsList: ReplaySubject<Legislator> ;
+
+  getFollowedBills (user: string) : Observable<Response>;
   getSessions();
+  getBillComments(billName: string) : Observable<Response>;
+
   getConstitution();
+  followLegislator(inLeg : Legislator);
   getChambers() : Observable<Response>;
   getCalendars();
+  followBill(inUser: string, inbillName: string);
+  followLegislator(inLeg : Legislator);
+  commentBill(inBill: Bill, user: string, comment: string) ;
   getJournals();
   getLegislators() : Observable<Response>;
   //getLegislatorsWithDetails() : Legislator[];

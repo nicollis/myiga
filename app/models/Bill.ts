@@ -18,7 +18,19 @@ export class IBill {
 
 }
 
+export class BillComment {
+  _id: string;
+  billName: string;
+  comment: string;
+  __v: number;
+}
 
+export class BillFollow {
+  _id: string;
+  user: string;
+  billName: string;
+  __v: number;
+}
 export class Bill {
 
   title: string;
@@ -37,14 +49,17 @@ export class Bill {
   cosponsors: ILegislator[] = [];
   advisors: ILegislator[] = [];
   motions: any[] = [];
-  latestVersion: any;
+  currentVersion: any = {};
+  latestVersion: any = {};
   actions: any;
   revno: any;
   versions: any;
   link: string;
   committeeStatus: string;
 
+  constructor() {
 
+  }
 
 }
 

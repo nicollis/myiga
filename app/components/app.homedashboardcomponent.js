@@ -1,5 +1,4 @@
 System.register(['angular2/core', '../services/MyLocalIGADataService', './app.legislatureimage', './chart.directive', './chart.donutchart', 'angular2/router', './app.senatelegislatorscomponent', 'rxjs/add/operator/count', 'rxjs/add/operator/filter', 'rxjs/add/operator/mergeAll', 'rxjs/add/operator/merge', 'rxjs/add/operator/take', 'rxjs/add/observable/from', 'rxjs/add/observable/fromArray', 'rxjs/add/operator/map', 'rxjs/add/operator/zipAll'], function(exports_1) {
-    "use strict";
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -64,13 +63,12 @@ System.register(['angular2/core', '../services/MyLocalIGADataService', './app.le
                     this.houseDemocratsList = [];
                     this.senateRepublicansList = [];
                     this.senateDemocratsList = [];
+                    this.followedBills = [];
                     console.log('I am in the home dashboard controller');
                     this.mylegislators = dataService.representatives;
                     this.senators1 = dataService.senators;
                     console.log('This is where it starts');
                     console.log(JSON.stringify(dataService.biPartisanBills1));
-                    dataService.legislatorsList
-                        .subscribe(function (x) { return console.log(JSON.stringify(x)); });
                     dataService.legislatorsList
                         .filter(function (x) { return x.party == 'Republican' && x.chamber.name == 'Senate'; })
                         .subscribe(function (senator) { return _this.senateRepublicansList.push(senator); });
@@ -80,6 +78,15 @@ System.register(['angular2/core', '../services/MyLocalIGADataService', './app.le
                         .subscribe(function (senator) { return _this.houseRepublicansList.push(senator); });
                     dataService.legislatorsList.filter(function (x) { return x.party == 'Democratic' && x.chamber.name == 'House'; })
                         .subscribe(function (senator) { return _this.houseDemocratsList.push(senator); });
+                    dataService.getFollowedBills("Sheldon")
+                        .map(function (res) { return res.json(); })
+                        .subscribe(function (myBill) {
+                        Rx.Observable.fromArray(myBill)
+                            .subscribe(function (x) {
+                            console.log(JSON.stringify(x));
+                            _this.followedBills.push(x);
+                        });
+                    });
                     dataService.billsList.filter(function (x) { return x.originChamber == 'house'; })
                         .subscribe(function (bill) { return _this.houseBillsList.push(bill); });
                     dataService.billsList.filter(function (x) { return x.originChamber == 'senate'; })
@@ -109,7 +116,7 @@ System.register(['angular2/core', '../services/MyLocalIGADataService', './app.le
                     __metadata('design:paramtypes', [Object])
                 ], HomeDashBoardComponent);
                 return HomeDashBoardComponent;
-            }());
+            })();
             exports_1("HomeDashBoardComponent", HomeDashBoardComponent);
         }
     }
